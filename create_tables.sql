@@ -48,3 +48,8 @@ CREATE TABLE "Order"
     "Type"         varchar REFERENCES "OrderType" ("Name")   NOT NULL,
     "Status"       varchar REFERENCES "OrderStatus" ("Name") NOT NULL
 );
+
+CREATE TABLE "Account" (
+    "Email" varchar NOT NULL,
+    "Password" varchar NOT NULL
+)

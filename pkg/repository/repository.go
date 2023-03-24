@@ -1,11 +1,18 @@
 package repository
 
-import "github.com/jmoiron/sqlx"
+import (
+	"GuardianPRO/models"
+	"github.com/jmoiron/sqlx"
+)
 
 type Auth interface {
+	SignUp(account *models.Account) (*string, error)
+	SignIn(account *models.Account) (*string, error)
 }
 
 type Account interface {
+	IsRegistered(login string) (bool, error)
+	GetList() (*models.AccountGetList, error)
 }
 
 type Order interface {

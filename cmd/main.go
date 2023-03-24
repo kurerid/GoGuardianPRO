@@ -4,15 +4,31 @@ import (
 	"GuardianPRO/pkg/handler"
 	"GuardianPRO/pkg/repository"
 	"GuardianPRO/pkg/service"
+	"fmt"
 	"log"
 )
 
 func main() {
-
-	repos := repository.NewRepository()
+	cfg := repository.Config{
+		ServerConfig: repository.ServerConfig{Port: "8080"},
+		DbConfig: repository.DbConfig{
+			Host:     "10.14.206.27",
+			Port:     "5432",
+			Username: "student",
+			Password: "1234",
+			DbName:   "GuardianPRO",
+			SSLMode:  "disable",
+		},
+	}
+	db, err := repository.NewPostgresDb(&cfg)
+	if err != nil {
+		fmt.Println("Сломались на подключении")
+		log.Fatalln(err)
+	}
+	repos := repository.NewRepository(db)
 	services := service.NewService(repos)
 	handlers := handler.NewHandler(services)
-	if err := runServer("8008", handlers); err != nil {
+	if err := runServer(cfg.ServerConfig.Port, handlers); err != nil {
 		log.Fatalln(err)
 	}
 }
