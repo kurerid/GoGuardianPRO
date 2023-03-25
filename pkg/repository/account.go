@@ -13,8 +13,8 @@ func NewAccountPostgres(db *sqlx.DB) *AccountPostgres {
 	return &AccountPostgres{db: db}
 }
 
-func (r *AccountPostgres) IsRegistered(login string) (bool, error) {
-	rows, err := r.db.Query(`SELECT "Email" FROM "Account" WHERE "Email" = $1`, login)
+func (r *AccountPostgres) IsRegistered(email string) (bool, error) {
+	rows, err := r.db.Query(`SELECT "Email" FROM "Account" WHERE "Email" = $1`, email)
 	if err != nil {
 		return false, err
 	}

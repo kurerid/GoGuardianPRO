@@ -13,8 +13,8 @@ func NewAccountService(repo repository.Account) *AccountService {
 	return &AccountService{repo: repo}
 }
 
-func (s *AccountService) IsRegistered(login string) (bool, error) {
-	return s.repo.IsRegistered(login)
+func (s *AccountService) IsRegistered(email string) (bool, error) {
+	return s.repo.IsRegistered(email)
 }
 
 func (s *AccountService) GetList() (*models.AccountGetList, error) {

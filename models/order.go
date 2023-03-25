@@ -2,6 +2,11 @@ package models
 
 import "time"
 
+const (
+	PRIVATE_ORDER = "private"
+	GROUP_ORDER   = "group"
+)
+
 type Order struct {
 	ID           int       `json:"id" binding:"required"`
 	BeginDate    time.Time `json:"begin_date" binding:"required"`

@@ -6,16 +6,17 @@ import (
 )
 
 type Auth interface {
-	SignUp(account *models.Account) (*string, error)
-	SignIn(account *models.Account) (*string, error)
+	SignUp(input *models.Account) (*string, error)
+	SignIn(input *models.Account) (*string, error)
 }
 
 type Account interface {
-	IsRegistered(login string) (bool, error)
+	IsRegistered(email string) (bool, error)
 	GetList() (*models.AccountGetList, error)
 }
 
 type Order interface {
+	CreatePrivate(input *models.Order) error
 }
 
 type Service struct {
@@ -28,6 +29,6 @@ func NewService(repos *repository.Repository) *Service {
 	return &Service{
 		Auth:    NewAuthService(repos.Auth),
 		Account: NewAccountService(repos.Account),
-		Order:   repos.Order,
+		Order:   NewOrderService(repos.Order),
 	}
 }

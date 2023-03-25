@@ -12,9 +12,9 @@ func main() {
 	cfg := repository.Config{
 		ServerConfig: repository.ServerConfig{Port: "8080"},
 		DbConfig: repository.DbConfig{
-			Host:     "10.14.206.27",
+			Host:     "localhost",
 			Port:     "5432",
-			Username: "student",
+			Username: "postgres",
 			Password: "1234",
 			DbName:   "GuardianPRO",
 			SSLMode:  "disable",

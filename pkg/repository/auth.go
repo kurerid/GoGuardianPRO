@@ -14,8 +14,8 @@ func NewAuthPostgres(db *sqlx.DB) *AuthPostgres {
 	return &AuthPostgres{db: db}
 }
 
-func (r *AuthPostgres) SignUp(account *models.Account) (*string, error) {
-	_, err := r.db.Exec(`INSERT INTO "Account"("Email", "Password") VALUES($1,$2)`, account.Email, account.Password)
+func (r *AuthPostgres) SignUp(input *models.Account) (*string, error) {
+	_, err := r.db.Exec(`INSERT INTO "Account"("Email", "Password") VALUES($1,$2)`, input.Email, input.Password)
 	if err != nil {
 		return nil, err
 	}
@@ -23,13 +23,13 @@ func (r *AuthPostgres) SignUp(account *models.Account) (*string, error) {
 	return &auth, nil
 }
 
-func (r *AuthPostgres) SignIn(account *models.Account) (*string, error) {
+func (r *AuthPostgres) SignIn(input *models.Account) (*string, error) {
 	var expectedAccount models.Account
-	err := r.db.Get(&expectedAccount, `SELECT * FROM "Account" WHERE "Email" = $1 AND "Password" = $2`, account.Email, account.Password)
+	err := r.db.Get(&expectedAccount, `SELECT * FROM "Account" WHERE "Email" = $1 AND "Password" = $2`, input.Email, input.Password)
 	if err != nil {
 		return nil, err
 	}
-	if expectedAccount.Password != account.Password {
+	if expectedAccount.Password != input.Password {
 		return nil, errors.New("Invalid password")
 	}
 	auth := "info for authorization header"

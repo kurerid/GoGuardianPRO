@@ -1,6 +1,9 @@
 package repository
 
-import "github.com/jmoiron/sqlx"
+import (
+	"GuardianPRO/models"
+	"github.com/jmoiron/sqlx"
+)
 
 type OrderPostgres struct {
 	db *sqlx.DB
@@ -8,4 +11,8 @@ type OrderPostgres struct {
 
 func NewOrderPostgres(db *sqlx.DB) *OrderPostgres {
 	return &OrderPostgres{db: db}
+}
+
+func (r *OrderPostgres) CreatePrivate(input *models.Order) error {
+	return nil
 }

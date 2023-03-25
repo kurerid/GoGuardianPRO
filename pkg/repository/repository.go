@@ -11,11 +11,12 @@ type Auth interface {
 }
 
 type Account interface {
-	IsRegistered(login string) (bool, error)
+	IsRegistered(email string) (bool, error)
 	GetList() (*models.AccountGetList, error)
 }
 
 type Order interface {
+	CreatePrivate(input *models.Order) error
 }
 
 type Repository struct {
